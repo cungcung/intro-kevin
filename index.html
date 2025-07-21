@@ -1,0 +1,143 @@
+
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Selamat Ulang Tahun Kevin</title>
+  <link href="https://fonts.googleapis.com/css2?family=Pacifico&display=swap" rel="stylesheet">
+  <style>
+    html, body {
+      margin: 0;
+      padding: 0;
+      height: 100%;
+      font-family: 'Pacifico', cursive;
+      overflow: hidden;
+    }
+
+    .intro {
+      background: url('bg.jpg') no-repeat center center;
+      background-size: cover;
+      height: 100%;
+      width: 100%;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      flex-direction: column;
+      color: #fff;
+      text-shadow: 2px 2px 8px #000;
+      animation: fadeIn 2s ease-in;
+    }
+
+    h1 {
+      font-size: 64px;
+      margin-bottom: 20px;
+      animation: pop 1s ease-out forwards;
+    }
+
+    p {
+      font-size: 28px;
+      animation: slideUp 2s ease-out forwards;
+    }
+
+    @keyframes fadeIn {
+      from {opacity: 0;}
+      to {opacity: 1;}
+    }
+
+    @keyframes pop {
+      0% {transform: scale(0);}
+      100% {transform: scale(1);}
+    }
+
+    @keyframes slideUp {
+      from { transform: translateY(50px); opacity: 0; }
+      to { transform: translateY(0); opacity: 1; }
+    }
+
+    canvas {
+      position: absolute;
+      top: 0;
+      left: 0;
+      pointer-events: none;
+      z-index: 10;
+    }
+
+    @media (max-width: 600px) {
+      h1 { font-size: 40px; }
+      p { font-size: 20px; }
+    }
+  </style>
+</head>
+<body>
+
+<div class="intro">
+  <h1>🎉 Happy Birthday Kevin 🎉</h1>
+  <p>Selamat menikmati kejutan spesialmu!</p>
+</div>
+
+<canvas id="confetti"></canvas>
+
+<script>
+  // Confetti effect
+  const canvas = document.getElementById("confetti");
+  const ctx = canvas.getContext("2d");
+  let W = window.innerWidth;
+  let H = window.innerHeight;
+  canvas.width = W;
+  canvas.height = H;
+
+  const particles = [];
+
+  for (let i = 0; i < 150; i++) {
+    particles.push({
+      x: Math.random() * W,
+      y: Math.random() * H,
+      r: Math.random() * 6 + 4,
+      d: Math.random() * 150,
+      color: `rgb(${~~(Math.random()*255)}, ${~~(Math.random()*255)}, ${~~(Math.random()*255)})`,
+      tilt: Math.floor(Math.random() * 10) - 10,
+      tiltAngleIncremental: (Math.random() * 0.07) + 0.05,
+      tiltAngle: 0
+    });
+  }
+
+  function draw() {
+    ctx.clearRect(0, 0, W, H);
+    for (let i = 0; i < particles.length; i++) {
+      const p = particles[i];
+      ctx.beginPath();
+      ctx.lineWidth = p.r;
+      ctx.strokeStyle = p.color;
+      ctx.moveTo(p.x + p.tilt + p.r / 2, p.y);
+      ctx.lineTo(p.x + p.tilt, p.y + p.tilt + p.r / 2);
+      ctx.stroke();
+    }
+    update();
+  }
+
+  function update() {
+    for (let i = 0; i < particles.length; i++) {
+      const p = particles[i];
+      p.tiltAngle += p.tiltAngleIncremental;
+      p.y += (Math.cos(p.d) + 3 + p.r / 2) / 2;
+      p.x += Math.sin(p.d);
+      p.tilt = Math.sin(p.tiltAngle - i / 3) * 15;
+
+      if (p.y > H) {
+        p.y = -10;
+        p.x = Math.random() * W;
+      }
+    }
+  }
+
+  setInterval(draw, 33);
+
+  // Redirect
+  setTimeout(function () {
+    window.location.href = "https://cungcung.github.io/kartu-ulang-tahun/";
+  }, 7000);
+</script>
+
+</body>
+</html>
