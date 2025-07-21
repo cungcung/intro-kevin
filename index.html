@@ -18,26 +18,30 @@
     .intro {
       background: url('bg.jpg') no-repeat center center;
       background-size: cover;
-      height: 100%;
-      width: 100%;
+      height: 100vh;
+      width: 100vw;
       display: flex;
       justify-content: center;
       align-items: center;
       flex-direction: column;
+      text-align: center;
       color: #fff;
+      padding: 1rem;
+      box-sizing: border-box;
       text-shadow: 2px 2px 8px #000;
       animation: fadeIn 2s ease-in;
     }
 
     h1 {
-      font-size: 64px;
+      font-size: 8vw;
       margin-bottom: 20px;
       animation: pop 1s ease-out forwards;
     }
 
     p {
-      font-size: 28px;
+      font-size: 5vw;
       animation: slideUp 2s ease-out forwards;
+      max-width: 90%;
     }
 
     @keyframes fadeIn {
@@ -62,11 +66,6 @@
       pointer-events: none;
       z-index: 10;
     }
-
-    @media (max-width: 600px) {
-      h1 { font-size: 40px; }
-      p { font-size: 20px; }
-    }
   </style>
 </head>
 <body>
@@ -79,7 +78,6 @@
 <canvas id="confetti"></canvas>
 
 <script>
-  // Confetti effect
   const canvas = document.getElementById("confetti");
   const ctx = canvas.getContext("2d");
   let W = window.innerWidth;
@@ -88,7 +86,6 @@
   canvas.height = H;
 
   const particles = [];
-
   for (let i = 0; i < 150; i++) {
     particles.push({
       x: Math.random() * W,
@@ -133,7 +130,6 @@
 
   setInterval(draw, 33);
 
-  // Redirect
   setTimeout(function () {
     window.location.href = "https://cungcung.github.io/kartu-ulang-tahun/";
   }, 7000);
